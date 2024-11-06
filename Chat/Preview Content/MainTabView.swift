@@ -15,7 +15,7 @@ struct MainTabView: View {
     
     var body: some View {
         TabView {
-            placeholderItemView("Updates")
+            placeholderItemView("PLACEHOLDER")
                 .tabItem{
                     Image(systemName: Tab.updates.icon)
                     Text(Tab.updates.title)
@@ -25,7 +25,7 @@ struct MainTabView: View {
                     Image(systemName: Tab.chats.icon)
                     Text(Tab.chats.title)
                 }
-            placeholderItemView("Settings")
+            placeholderItemView("PLACEHOLDER")
                 .tabItem{
                     Image(systemName: Tab.settings.icon)
                     Text(Tab.settings.title)
