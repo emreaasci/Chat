@@ -76,7 +76,7 @@ struct TextInputArea: View {
         Button {
             
         } label: {
-            Image(systemName: "arrow.up")
+            Image(systemName: "arrow.up").symbolEffect(.bounce.up.byLayer, options: .nonRepeating)
                 .fontWeight(.heavy)
                 .foregroundStyle(.white)
                 .padding(6)
