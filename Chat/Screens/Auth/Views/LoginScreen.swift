@@ -19,13 +19,13 @@ struct LoginScreen: View {
                 AuthHeaderView()
                 
                 
-                
-                
                 AuthTextField(text: $authScreenModel.email, type: .email)
                 AuthTextField(text: $authScreenModel.password, type: .password)
                 
                 AuthButton(title: "LOGIN") {
-                    
+                    Task {
+                        await authScreenModel.handlelogin()
+                    }
                 }
                 .disabled(authScreenModel.disableLoginButton)
                 

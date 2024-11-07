@@ -8,8 +8,15 @@
 import SwiftUI
 
 struct MainTabView: View {
-    init() {
+    private let currentUser: UserItems
+    
+    init(_ currentUser: UserItems) {
+        self.currentUser = currentUser
         makeTabBarOpaque()
+        
+        let thumbImage = UIImage(systemName: "circle.fill")
+        UISlider.appearance().setThumbImage(thumbImage, for: .normal)
+        
     }
     
     
@@ -25,7 +32,7 @@ struct MainTabView: View {
                     Image(systemName: Tab.chats.icon)
                     Text(Tab.chats.title)
                 }
-            placeholderItemView("PLACEHOLDER")
+            SettingsTabScreen()
                 .tabItem{
                     Image(systemName: Tab.settings.icon)
                     Text(Tab.settings.title)
@@ -89,6 +96,6 @@ extension MainTabView {
 
 
 #Preview {
-    MainTabView()
+    MainTabView(.placeHolder)
 }
 

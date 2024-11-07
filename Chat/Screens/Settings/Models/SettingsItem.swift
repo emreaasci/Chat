@@ -1,9 +1,3 @@
-//
-//  SettingsItem.swift
-//  WhatsAppClone
-//
-//  Created by Osaretin Uyigue on 3/13/24.
-//
 
 import Foundation
 import SwiftUI
@@ -58,7 +52,7 @@ extension SettingsItem {
     )
     
     static let chats = SettingsItem(
-        imageName: "whatsapp-black",
+        imageName: "circle.fill",
         imageType: .assetImage,
         backgroundColor: .green,
         title: "Chats"

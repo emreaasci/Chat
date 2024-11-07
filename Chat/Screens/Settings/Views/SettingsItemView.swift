@@ -1,9 +1,4 @@
-//
-//  SettingsItemView.swift
-//  WhatsAppClone
-//
-//  Created by Osaretin Uyigue on 3/13/24.
-//
+
 
 import SwiftUI
 

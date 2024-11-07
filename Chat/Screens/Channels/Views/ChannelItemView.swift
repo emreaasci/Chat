@@ -28,9 +28,10 @@ struct ChannelItemView: View {
             
             Spacer()
             
-            Text("15.50")
+            Text("15:70")
                 .foregroundStyle(.gray)
                 .font(.system(size: 15))
+                
             
         }
     }

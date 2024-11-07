@@ -1,9 +1,3 @@
-//
-//  SettingsTabScreen.swift
-//  WhatsAppClone
-//
-//  Created by Osaretin Uyigue on 3/13/24.
-//
 
 import SwiftUI
 
@@ -37,9 +31,33 @@ struct SettingsTabScreen: View {
             }
             .navigationTitle("Settings")
             .searchable(text: $searchText)
+            .toolbar {
+                leadingNavItem()
+            }
         }
     }
 }
+
+
+extension SettingsTabScreen {
+    @ToolbarContentBuilder
+    private func leadingNavItem() -> some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            
+            Button("Sign Out") {
+                Task {
+                    try? await AuthManager.shared.logout()
+                }
+            }
+            
+            .bold()
+            .foregroundStyle(.red)
+        }
+        
+    }
+}
+
+
 
 private struct SettingsHeaderView: View {
     var body: some View {
@@ -58,12 +76,12 @@ private struct SettingsHeaderView: View {
     private func userInfoTextView() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Text("Qa User 13")
+                Text("Emre Aşcı")
                     .font(.title2)
                 
                 Spacer()
                 
-                Image(.qrcode)
+                Image(systemName: "triangle.fill")
                     .renderingMode(.template)
                     .padding(5)
                     .foregroundStyle(.blue)
@@ -71,7 +89,7 @@ private struct SettingsHeaderView: View {
                     .clipShape(Circle())
             }
             
-            Text("Hey there! I am using WhatsApp")
+            Text("Hey there! I am using Holder")
                 .foregroundStyle(.gray)
                 .font(.callout)
             
