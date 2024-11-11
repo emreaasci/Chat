@@ -26,6 +26,21 @@ struct UserItems: Identifiable, Hashable, Decodable {
     
     static let placeHolder = UserItems(uid: "1", username: "emres", email: "emre@gmail.com")
     
+    static let placeHolders: [UserItems] = [
+        
+        UserItems(uid: "1", username: "Emre", email: "emre1@gmail.com", bio: "aaaaaaaaaaa"),
+        UserItems(uid: "2", username: "Fatih", email: "emre2@gmail.com", bio: "bbbbbbbbbb"),
+        UserItems(uid: "3", username: "Taco", email: "emre3@gmail.com", bio: "cccccccccccc"),
+        UserItems(uid: "4", username: "Yavuz", email: "emre4@gmail.com", bio: "ddddddddddd"),
+        UserItems(uid: "5", username: "Ahmet", email: "emre5@gmail.com", bio: "eeeeeeeeeee"),
+        UserItems(uid: "6", username: "Mehmet", email: "emre6@gmail.com", bio: "fffffffffff"),
+        UserItems(uid: "7", username: "Selim", email: "emre7@gmail.com", bio: "gggggggggg"),
+        UserItems(uid: "8", username: "ICARDI", email: "emre8@gmail.com", bio: "hhhhhhhhhh"),
+        UserItems(uid: "9", username: "OSHIMEN", email: "emre9@gmail.com", bio: "iiiiiiiiii"),
+        UserItems(uid: "10", username: "SARA", email: "emre10@gmail.com", bio: "yyyyyyyyyyyy"),
+        
+    ]
+    
 }
 
 

@@ -12,16 +12,23 @@ struct ChatPartnerPickerScreen: View {
     @State private var searchText: String = ""
     @Environment(\.dismiss) private var dismiss
     
+    @StateObject private var viewModel = ChatPartnerPickerViewModel()
+    
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $viewModel.navStack) {
             List {
                 ForEach(ChatPartnerpickerOption.allCases) { item in
                     HeaderItemView(item: item)
+                        .onTapGesture {
+                            viewModel.navStack.append(.groupPartnerPicker)
+                        }
                         .foregroundStyle(Color.black)
+                    
+                        
                 }
                 
                 Section {
-                    ForEach(0..<20){_ in
+                    ForEach(0..<10){_ in
                         ChatPartnerRowView(user: .placeHolder)
                     }
                     
@@ -30,10 +37,19 @@ struct ChatPartnerPickerScreen: View {
                         //.textCase(nil)
                         .bold()
                 }
+                
             }
-            .searchable(text: $searchText, prompt: "search name or phone number")
+            .searchable(
+                text: $searchText,
+                    placement: .navigationBarDrawer(displayMode: .always),
+                    prompt: "search name or phone number"
+            )
             
             .navigationTitle("New Chat")
+            .navigationDestination(for: ChannelCreationRoute.self) { route in
+                destinationView(for: route)
+                
+            }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 trailingNavItem()
@@ -42,6 +58,24 @@ struct ChatPartnerPickerScreen: View {
         }
     }
 }
+
+extension ChatPartnerPickerScreen {
+    @ViewBuilder
+    private func destinationView(for route: ChannelCreationRoute) -> some View {
+        switch route {
+            case .groupPartnerPicker:
+            GroupPartnerPickerScreen(viewModel: viewModel)
+            
+            case .setUpGroupChat:
+                NewGroupSetUpScreen(viewModel: ChatPartnerPickerViewModel())
+
+
+        }
+        
+    }
+}
+
+
 
 extension ChatPartnerPickerScreen{
     

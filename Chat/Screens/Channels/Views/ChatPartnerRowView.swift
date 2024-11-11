@@ -7,9 +7,16 @@
 
 import SwiftUI
 
-struct ChatPartnerRowView: View {
+struct ChatPartnerRowView<Content: View>: View {
     
     let user: UserItems
+    private var trailingItem: Content
+    
+    
+    init (user: UserItems, @ViewBuilder trailingItem: () -> Content = {EmptyView()}) {
+        self.user = user
+        self.trailingItem = trailingItem()
+    }
     
     var body: some View {
         
@@ -27,12 +34,20 @@ struct ChatPartnerRowView: View {
                     .foregroundStyle(.gray)
                
             }
+            
+            trailingItem
+            
         }
+        
+        
         
         
     }
 }
 
+
 #Preview {
-    ChatPartnerRowView(user: .placeHolder)
+    ChatPartnerRowView(user: .placeHolder) {
+        Image(systemName: "xmark")
+    }
 }

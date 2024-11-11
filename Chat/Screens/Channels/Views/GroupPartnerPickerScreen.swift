@@ -1,5 +1,5 @@
 //
-//  AddGroupChatPartnersScreen.swift
+//  GroupPartnerPickerScreen.swift
 //  Chat
 //
 //  Created by Emre Aşcı on 8.11.2024.
@@ -17,16 +17,18 @@ struct GroupPartnerPickerScreen: View {
     var body: some View {
         List {
             if(viewModel.showSelectedUsers) {
-                Text("Users Selected")
+                SelectedChatPartnerView(users: viewModel.selectedChatPartners) {user in
+                    viewModel.handleItemSelection(user)
+                }
                 
             }
             
             Section {
-                ForEach([UserItems.placeHolder]){ item in
+                ForEach(UserItems.placeHolders){ item in
                     Button {
                         viewModel.handleItemSelection(item)
                     } label: {
-                        chatPartnerRowView(.placeHolder)
+                        chatPartnerRowView(item)
                     }
                     
                 }
@@ -39,12 +41,18 @@ struct GroupPartnerPickerScreen: View {
                 placement: .navigationBarDrawer(displayMode: .always),
                 prompt: "search name or phone number"
         )
+        
+        .toolbar{
+            titleView()
+            traillingNavItem()
+        }
     }
     
+
     
     private func chatPartnerRowView(_ user: UserItems) -> some View {
         
-        ChatPartnerRowView(user: .placeHolder){
+        ChatPartnerRowView(user: user){
             Spacer()
             let isSelected = viewModel.isUserSelected(user)
             let imageName = isSelected ? "checkmark.circle.fill" : "circle"
@@ -55,6 +63,38 @@ struct GroupPartnerPickerScreen: View {
         }
     }
 }
+
+
+extension GroupPartnerPickerScreen {
+    @ToolbarContentBuilder
+    private func titleView() -> some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            VStack {
+                Text("Add Participants")
+                    .bold()
+                
+                let count = viewModel.selectedChatPartners.count
+                let maxCount = ChannelCotants.maxGroupParticipants
+                
+                Text("\(count)/\(maxCount)")
+                    .font(.footnote)
+                    .foregroundStyle(.gray)
+            }
+        }
+    }
+    @ToolbarContentBuilder
+    private func traillingNavItem() -> some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Button("Next"){
+                viewModel.navStack.append(.setUpGroupChat)
+            }
+            .bold()
+            .disabled(viewModel.disableNextButton)
+        }
+    }
+    
+}
+
 
 #Preview {
     NavigationStack {
