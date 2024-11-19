@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ChatPartnerRowView<Content: View>: View {
     
-    let user: UserItems
+    let user: UserItem
     private var trailingItem: Content
     
     
-    init (user: UserItems, @ViewBuilder trailingItem: () -> Content = {EmptyView()}) {
+    init (user: UserItem, @ViewBuilder trailingItem: () -> Content = {EmptyView()}) {
         self.user = user
         self.trailingItem = trailingItem()
     }
@@ -47,7 +47,7 @@ struct ChatPartnerRowView<Content: View>: View {
 
 
 #Preview {
-    ChatPartnerRowView(user: .placeHolder) {
+    ChatPartnerRowView(user: .placeholder) {
         Image(systemName: "xmark")
     }
 }

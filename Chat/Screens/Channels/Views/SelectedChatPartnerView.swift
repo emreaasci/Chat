@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct SelectedChatPartnerView: View {
-    let users: [UserItems]
+    let users: [UserItem]
     
-    let onTabHandler: (_ user: UserItems) -> Void
+    let onTabHandler: (_ user: UserItem) -> Void
     
     
     
@@ -26,7 +26,7 @@ struct SelectedChatPartnerView: View {
     }
     
     
-    private func chatPartnerView(_ user: UserItems) -> some View {
+    private func chatPartnerView(_ user: UserItem) -> some View {
         
         VStack {
             Circle()
@@ -41,7 +41,7 @@ struct SelectedChatPartnerView: View {
         
     }
     
-    private func cancelButton(_ user: UserItems) -> some View {
+    private func cancelButton(_ user: UserItem) -> some View {
         Button {
             onTabHandler(user)
         } label: {
@@ -59,7 +59,7 @@ struct SelectedChatPartnerView: View {
 }
 
 #Preview {
-    SelectedChatPartnerView(users: UserItems.placeHolders) { user in
+    SelectedChatPartnerView(users: UserItem.placeholders) { user in
         
         
         

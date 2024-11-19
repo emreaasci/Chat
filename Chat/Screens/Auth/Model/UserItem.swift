@@ -7,57 +7,54 @@
 
 import Foundation
 
-struct UserItems: Identifiable, Hashable, Decodable {
+import Foundation
+
+struct UserItem: Identifiable, Hashable, Decodable {
     let uid: String
     let username: String
     let email: String
     var bio: String? = nil
     var profileImageUrl: String? = nil
     
-    
     var id: String {
         return uid
     }
     
-    var bioUnwrapped: String? {
-        return bio ?? "HEY THERE!"
+    var bioUnwrapped: String {
+        return bio ?? "Hey there! I am using WhatsApp."
     }
     
+    static let placeholder = UserItem(uid: "1", username: "eMre", email: "emreaasci@gmail.com")
     
-    static let placeHolder = UserItems(uid: "1", username: "emres", email: "emre@gmail.com")
-    
-    static let placeHolders: [UserItems] = [
-        
-        UserItems(uid: "1", username: "Emre", email: "emre1@gmail.com", bio: "aaaaaaaaaaa"),
-        UserItems(uid: "2", username: "Fatih", email: "emre2@gmail.com", bio: "bbbbbbbbbb"),
-        UserItems(uid: "3", username: "Taco", email: "emre3@gmail.com", bio: "cccccccccccc"),
-        UserItems(uid: "4", username: "Yavuz", email: "emre4@gmail.com", bio: "ddddddddddd"),
-        UserItems(uid: "5", username: "Ahmet", email: "emre5@gmail.com", bio: "eeeeeeeeeee"),
-        UserItems(uid: "6", username: "Mehmet", email: "emre6@gmail.com", bio: "fffffffffff"),
-        UserItems(uid: "7", username: "Selim", email: "emre7@gmail.com", bio: "gggggggggg"),
-        UserItems(uid: "8", username: "ICARDI", email: "emre8@gmail.com", bio: "hhhhhhhhhh"),
-        UserItems(uid: "9", username: "OSHIMEN", email: "emre9@gmail.com", bio: "iiiiiiiiii"),
-        UserItems(uid: "10", username: "SARA", email: "emre10@gmail.com", bio: "yyyyyyyyyyyy"),
-        
+    static let placeholders: [UserItem] = [
+        UserItem(uid: "1", username: "EMRE", email: "emrea@gmail.com"),
+        UserItem(uid: "2", username: "OSIMHEN", email: "emreb@gmail.com", bio: "asdaddassd."),
+        UserItem(uid: "3", username: "ICARDI", email: "emrec@gmail.com", bio: "Pdddsd"),
+        UserItem(uid: "4", username: "SARA", email: "emred@gmail.com", bio: "Teasdadsdsaiast."),
+        UserItem(uid: "5", username: "MERTENS", email: "emree@gmail.com", bio: "Loasdasdure."),
+        UserItem(uid: "6", username: "TOREIRA", email: "emref@gmail.com", bio: "sdadddddddd."),
+        UserItem(uid: "7", username: "DAVINSON", email: "emref@gmail.com"),
+        UserItem(uid: "8", username: "YUNUS", email: "emreg@gmail.com", bio: "CocsadaSDasdasda"),
+        UserItem(uid: "9", username: "BARIŞ", email: "emreh@gmail.com", bio: "Musaddadqwdrw"),
+        UserItem(uid: "10", username: "MUSLERA", email: "emreı@gmail.com", bio: "Tsaqddqweqdqerw")
     ]
-    
+
 }
 
-
-extension UserItems {
-    init (dictionary: [String: Any]) {
-        self.uid = dictionary["uid"] as? String ?? ""
-        self.email = dictionary["email"] as? String ?? ""
-        self.username = dictionary["username"] as? String ?? ""
-        self.bio = dictionary["bio"] as? String ?? nil
-        self.profileImageUrl = dictionary["profileImageUrl"] as? String ?? nil
+extension UserItem {
+    init(dictionary: [String: Any]) {
+        self.uid = dictionary[.uid] as? String ?? ""
+        self.username = dictionary[.username] as? String ?? ""
+        self.email = dictionary[.email] as? String ?? ""
+        self.bio = dictionary[.bio] as? String? ?? nil
+        self.profileImageUrl = dictionary[.profileImageUrl] as? String? ?? nil
     }
 }
 
 extension String {
     static let uid = "uid"
-    static let email = "email"
     static let username = "username"
+    static let email = "email"
     static let bio = "bio"
     static let profileImageUrl = "profileImageUrl"
 }

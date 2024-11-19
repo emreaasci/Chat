@@ -10,7 +10,6 @@ import Foundation
 import SwiftUI
 
 struct GroupPartnerPickerScreen: View {
-    
     @ObservedObject var viewModel: ChatPartnerPickerViewModel
     @State private var searchText: String = ""
     
@@ -24,7 +23,7 @@ struct GroupPartnerPickerScreen: View {
             }
             
             Section {
-                ForEach(UserItems.placeHolders){ item in
+                ForEach(viewModel.users){ item in
                     Button {
                         viewModel.handleItemSelection(item)
                     } label: {
@@ -33,6 +32,11 @@ struct GroupPartnerPickerScreen: View {
                     
                 }
             }
+            
+            if viewModel.isPaginatable {
+                loadMoreUsersView()
+            }
+            
         }
         
         .animation(.easeInOut,value: viewModel.showSelectedUsers)
@@ -50,7 +54,7 @@ struct GroupPartnerPickerScreen: View {
     
 
     
-    private func chatPartnerRowView(_ user: UserItems) -> some View {
+    private func chatPartnerRowView(_ user: UserItem) -> some View {
         
         ChatPartnerRowView(user: user){
             Spacer()
@@ -61,6 +65,18 @@ struct GroupPartnerPickerScreen: View {
                 .foregroundStyle(foregroundStyle)
                 .imageScale(.large)
         }
+    }
+    
+    
+    private func loadMoreUsersView() -> some View {
+         ProgressView()
+            .frame(maxWidth: .infinity)
+            .listRowBackground(Color.clear)
+            .task {
+                await viewModel.fetchUsers()
+            }
+        
+                
     }
 }
 
@@ -74,7 +90,7 @@ extension GroupPartnerPickerScreen {
                     .bold()
                 
                 let count = viewModel.selectedChatPartners.count
-                let maxCount = ChannelCotants.maxGroupParticipants
+                let maxCount = ChannelContants.maxGroupParticipants
                 
                 Text("\(count)/\(maxCount)")
                     .font(.footnote)

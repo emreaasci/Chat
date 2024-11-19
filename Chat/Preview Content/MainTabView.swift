@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct MainTabView: View {
-    private let currentUser: UserItems
+    private let currentUser: UserItem
     
-    init(_ currentUser: UserItems) {
+    init(_ currentUser: UserItem) {
         self.currentUser = currentUser
         makeTabBarOpaque()
         
@@ -96,6 +96,6 @@ extension MainTabView {
 
 
 #Preview {
-    MainTabView(.placeHolder)
+    MainTabView(.placeholder)
 }
 

@@ -9,22 +9,20 @@
 import SwiftUI
 
 struct ChannelTabScreen: View {
-    @State private var searchText: String = ""
-    @State private var showChatPartnerPickerView = false
-    
+    @State private var searchText = ""
+    @StateObject private var viewModel = ChannelTabViewModel()
     
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             List {
                 archivedButton()
                 
-                ForEach(0..<10) { _ in
+                ForEach(0..<12) { _ in
                     NavigationLink {
-                        ChatRoomScreen()
-                    } label : {
+                        ChatRoomScreen(channel: .placeholder)
+                    } label: {
                         ChannelItemView()
                     }
-                    
                 }
                 
                 inboxFooterView()
@@ -33,37 +31,33 @@ struct ChannelTabScreen: View {
             .navigationTitle("Chats")
             .searchable(text: $searchText)
             .listStyle(.plain)
-            .toolbar{
-                loadingNavItems()
+            .toolbar {
+                leadingNavItems()
                 trailingNavItems()
             }
-            
-            .sheet(isPresented: $showChatPartnerPickerView) {
-                ChatPartnerPickerScreen()
+            .sheet(isPresented: $viewModel.showChatPartnerPickerView) {
+                ChatPartnerPickerScreen(onCreate: viewModel.onNewChannelCreation)
             }
-            
-            
+            .navigationDestination(isPresented: $viewModel.navigateToChatRoom) {
+                if let newChannel = viewModel.newChannel {
+                    ChatRoomScreen(channel: newChannel)
+                }
+            }
         }
     }
-    
 }
-
 
 extension ChannelTabScreen {
     @ToolbarContentBuilder
-    private func loadingNavItems() -> some ToolbarContent {
+    private func leadingNavItems() -> some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
-            Menu{
-                Button{
+            Menu {
+                Button {
                     
-                }
-                
-                label : {
+                } label: {
                     Label("Select Chats", systemImage: "checkmark.circle")
                 }
-                
-            }
-            label : {
+            } label: {
                 Image(systemName: "ellipsis.circle")
             }
         }
@@ -71,13 +65,11 @@ extension ChannelTabScreen {
     
     @ToolbarContentBuilder
     private func trailingNavItems() -> some ToolbarContent {
-        ToolbarItemGroup(placement: .topBarTrailing)
-        {
+        ToolbarItemGroup(placement: .topBarTrailing) {
             aiButton()
-            newChatButton()
             cameraButton()
+            newChatButton()
         }
-        
     }
     
     private func aiButton() -> some View {
@@ -90,9 +82,9 @@ extension ChannelTabScreen {
     
     private func newChatButton() -> some View {
         Button {
-            showChatPartnerPickerView = true
+            viewModel.showChatPartnerPickerView = true
         } label: {
-            Image(systemName: "plus")
+            Image(systemName: "plus.circle")
         }
     }
     
@@ -104,6 +96,9 @@ extension ChannelTabScreen {
         }
     }
     
+    
+    
+    
     private func archivedButton() -> some View {
         Button {
             
@@ -111,30 +106,26 @@ extension ChannelTabScreen {
             Label("Archived", systemImage: "archivebox.fill")
                 .bold()
                 .padding()
-                .foregroundColor(.gray)
+                .foregroundStyle(.gray)
         }
-        
     }
     
     private func inboxFooterView() -> some View {
-        HStack{
+        HStack {
             Image(systemName: "lock.fill")
             
             (
-                Text("Yout personel messages are ")
+                Text("Your personal messages are ")
                 +
                 Text("end-to-end encrypted")
-                    .foregroundStyle(.blue)
+                    .foregroundColor(.blue)
             )
         }
-        
         .foregroundStyle(.gray)
         .font(.caption)
         .padding(.horizontal)
     }
-    
 }
-
 
 #Preview {
     ChannelTabScreen()

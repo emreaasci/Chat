@@ -46,7 +46,7 @@ extension SettingsTabScreen {
             
             Button("Sign Out") {
                 Task {
-                    try? await AuthManager.shared.logout()
+                    try? await AuthManager.shared.logOut()
                 }
             }
             
