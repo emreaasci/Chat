@@ -35,13 +35,12 @@ struct MessageItem: Identifiable {
 
 
 
-
-enum MessageDirection{
-    case sent, received
-    
-    
-    static var random: MessageDirection{
-        return [MessageDirection.sent, .received].randomElement() ?? .sent
-    }
+extension String{
+    static let type = "type"
+    static let timeStamp  = "timeStamp"
+    static let ownerUid = "ownerUid"
     
 }
+
+
+
