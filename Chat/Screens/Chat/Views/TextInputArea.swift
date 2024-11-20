@@ -8,37 +8,39 @@
 import SwiftUI
 
 struct TextInputArea: View {
+    @Binding var textMessage: String
+    let onSendHandler:() -> Void
     
-    @State private var text: String = ""
+    private var disableSendButton: Bool {
+        return textMessage.isEmptyOrWhitespace()
+    }
     
     var body: some View {
-        
-        
-        HStack(alignment: .bottom,spacing: 5) {
+        HStack(alignment: .bottom, spacing: 5) {
             imagePickerButton()
                 .padding(3)
-            audioRecordButton()
+            
+            audioRecorderButton()
             messageTextField()
             sendMessageButton()
+                .disabled(disableSendButton)
+                .grayscale(disableSendButton ? 0.8 : 0)
         }
         .padding(.bottom)
         .padding(.horizontal, 8)
         .padding(.top, 10)
-        .background()
+        .background(.whatsAppWhite)
+        
     }
     
     private func messageTextField() -> some View {
-        TextField("", text: $text, axis: .vertical)
-        
+        TextField("", text: $textMessage, axis: .vertical)
             .padding(5)
             .background(
                 RoundedRectangle(cornerRadius: 20, style: .continuous)
                     .fill(.thinMaterial)
             )
             .overlay(textViewBorder())
-        
-                    
-        
     }
     
     private func textViewBorder() -> some View {
@@ -56,8 +58,7 @@ struct TextInputArea: View {
         }
     }
     
-    
-    private func audioRecordButton() -> some View {
+    private func audioRecorderButton() -> some View {
         Button {
             
         } label: {
@@ -74,9 +75,9 @@ struct TextInputArea: View {
     
     private func sendMessageButton() -> some View {
         Button {
-            
+            onSendHandler()
         } label: {
-            Image(systemName: "arrow.up").symbolEffect(.bounce.up.byLayer, options: .nonRepeating)
+            Image(systemName: "arrow.up")
                 .fontWeight(.heavy)
                 .foregroundStyle(.white)
                 .padding(6)
@@ -84,17 +85,10 @@ struct TextInputArea: View {
                 .clipShape(Circle())
         }
     }
-    
-    
-    
-    
 }
 
-
-
-
-
-
 #Preview {
-    TextInputArea()
+    TextInputArea(textMessage: .constant("")) {
+        
+    }
 }

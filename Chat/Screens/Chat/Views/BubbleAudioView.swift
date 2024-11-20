@@ -83,3 +83,4 @@ struct BubbleAudioView: View {
         UISlider.appearance().setThumbImage(thumbImage, for: .normal)
     }
 }
+

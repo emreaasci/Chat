@@ -7,7 +7,6 @@
 
 
 import Foundation
-import Firebase
 import FirebaseAuth
 
 struct ChannelItem: Identifiable {
@@ -21,17 +20,15 @@ struct ChannelItem: Identifiable {
     var membersUids: [String]
     var members: [UserItem]
     var thumbnailUrl: String?
-    var createdBy: String
+    let createdBy: String
     
     var isGroupChat: Bool {
         return membersCount > 2
     }
     
-    
     var membersExcludingMe: [UserItem] {
-        guard let currentId = Auth.auth().currentUser?.uid else { return [] }
-        
-        return members.filter { $0.id != currentId }
+        guard let currentUid = Auth.auth().currentUser?.uid else { return [] }
+        return members.filter { $0.uid != currentUid }
     }
     
     var title: String {
@@ -39,35 +36,38 @@ struct ChannelItem: Identifiable {
             return name
         }
         
-        if isGroupChat{
-            return groupMembersName
-        }
-        else {
-            return membersExcludingMe.first?.username ?? "unknown"
+        if isGroupChat {
+            return groupMemberNames
+        } else {
+            return membersExcludingMe.first?.username ?? "Unknown"
         }
     }
     
-    
-    private var groupMembersName: String {
-        let membersCount = membersExcludingMe.count
-        let fullNames: [String] = membersExcludingMe.map{ $0.username }
-        
+    private var groupMemberNames: String {
+        let membersCount = membersCount - 1
+        let fullNames: [String] = membersExcludingMe.map { $0.username }
         
         if membersCount == 2 {
+            // usernmae1 and username2
             return fullNames.joined(separator: " and ")
-        }
-        
-        else if membersCount > 2 {
+        } else if membersCount > 2 {
+            // usernmae1, username2 and 10 others
             let remainingCount = membersCount - 2
-            return fullNames.prefix(2).joined(separator: ", ") + ", and \(remainingCount) " + " others"
+            return fullNames.prefix(2).joined(separator: ", ") + ", and \(remainingCount) " + "others"
         }
-        
         
         return "Unknown"
     }
     
-    static let placeholder = ChannelItem.init(id: "1", lastMessage: "Hello world", creationDate: Date(), lastMessageTimeStamp: Date(), membersCount: 2, adminUids: [], membersUids: [], members: [], createdBy: "")
+    var isCreatedByMe: Bool {
+        return createdBy == Auth.auth().currentUser?.uid ?? ""
+    }
     
+    var creatorName: String {
+        return members.first { $0.uid == createdBy }?.username ?? "Someone"
+    }
+    
+    static let placeholder = ChannelItem.init(id: "1", lastMessage: "Hello world", creationDate: Date(), lastMessageTimeStamp: Date(), membersCount: 2, adminUids: [], membersUids: [], members: [], createdBy: "")
     
     
 }
@@ -103,5 +103,3 @@ extension String {
     static let members = "members"
     static let createdBy = "createdBy"
 }
-
-

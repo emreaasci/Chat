@@ -17,11 +17,11 @@ struct ChannelTabScreen: View {
             List {
                 archivedButton()
                 
-                ForEach(0..<12) { _ in
+                ForEach(viewModel.channels) { channel in
                     NavigationLink {
-                        ChatRoomScreen(channel: .placeholder)
+                        ChatRoomScreen(channel: channel)
                     } label: {
-                        ChannelItemView()
+                        ChannelItemView(channel: channel)
                     }
                 }
                 
@@ -76,7 +76,7 @@ extension ChannelTabScreen {
         Button {
             
         } label: {
-            Image(systemName: "circle")
+            Image(.circle)
         }
     }
     
@@ -84,7 +84,7 @@ extension ChannelTabScreen {
         Button {
             viewModel.showChatPartnerPickerView = true
         } label: {
-            Image(systemName: "plus.circle")
+            Image(.plus)
         }
     }
     
@@ -95,8 +95,6 @@ extension ChannelTabScreen {
             Image(systemName: "camera")
         }
     }
-    
-    
     
     
     private func archivedButton() -> some View {
@@ -130,3 +128,4 @@ extension ChannelTabScreen {
 #Preview {
     ChannelTabScreen()
 }
+

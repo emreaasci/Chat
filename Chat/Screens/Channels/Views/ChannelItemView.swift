@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ChannelItemView: View {
+    
+    let channel: ChannelItem
+    
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
             Circle()
@@ -22,7 +25,7 @@ struct ChannelItemView: View {
     
     private func titleTextView() -> some View {
         HStack {
-            Text("Username was here")
+            Text(channel.title)
                 .lineLimit(1)
                 .bold()
             
@@ -37,7 +40,7 @@ struct ChannelItemView: View {
     }
     
     private func lastMessageTextView() -> some View {
-        Text("Last message")
+        Text(channel.lastMessage)
             .foregroundStyle(.gray)
             .font(.system(size: 16))
             .lineLimit(2)
@@ -45,5 +48,5 @@ struct ChannelItemView: View {
 }
 
 #Preview {
-    ChannelItemView()
+    ChannelItemView(channel: .placeholder)
 }

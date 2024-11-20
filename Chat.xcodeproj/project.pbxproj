@@ -232,6 +232,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				274D8A8C2CDB665B00ACBBE5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				27CB8FC92CEE22C400D27197 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 2798BC232CDA28260057DCB5 /* Products */;
@@ -604,6 +605,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 11.4.0;
+			};
+		};
+		27CB8FC92CEE22C400D27197 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.1.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

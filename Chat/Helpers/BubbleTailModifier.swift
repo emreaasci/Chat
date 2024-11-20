@@ -1,3 +1,11 @@
+//
+//  BubbleTailModifier.swift
+//  Chat
+//
+//  Created by Emre Aşcı on 20.11.2024.
+//
+
+
 import SwiftUI
 
 private struct BubbleTailModifier: ViewModifier {

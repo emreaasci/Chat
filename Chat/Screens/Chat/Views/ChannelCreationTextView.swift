@@ -1,3 +1,11 @@
+//
+//  ChannelCreationTextView.swift
+//  Chat
+//
+//  Created by Emre Aşcı on 20.11.2024.
+//
+
+
 import SwiftUI
 
 struct ChannelCreationTextView: View {
